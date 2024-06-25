@@ -5,11 +5,12 @@ defmodule CurrencyFormatter.Mixfile do
     [
       app: :currency_formatter,
       version: "0.8.1",
-      description: "A library to help with formatting a number to a currency using iso standards and other convenience functions related to formatting currencies",
+      description:
+        "A library to help with formatting a number to a currency using iso standards and other convenience functions related to formatting currencies",
       package: package(),
       elixir: "~> 1.7",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: [
         plt_add_deps: true,
@@ -18,8 +19,8 @@ defmodule CurrencyFormatter.Mixfile do
           :error_handling,
           :race_conditions,
           :unknown,
-          :unmatched_returns,
-        ],
+          :unmatched_returns
+        ]
       ],
       preferred_cli_env: [
         coveralls: :test,
@@ -44,9 +45,10 @@ defmodule CurrencyFormatter.Mixfile do
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, ">= 0.0.0", only: :test},
       {:phoenix_html, ">= 0.0.0"},
-      {:poison, "~> 3.1.0"},
+      {:poison, "~> 6.0.0"}
     ]
   end
+
   defp package do
     [
       maintainers: ["Gerard de Brieder"],
