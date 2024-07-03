@@ -45,7 +45,7 @@ defmodule CurrencyFormatter.Mixfile do
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, ">= 0.0.0", only: :test},
       {:phoenix_html, ">= 0.0.0"},
-      {:poison, "~> 6.0.0"}
+      {:poison, ">= 4.0.0"}
     ]
   end
 
