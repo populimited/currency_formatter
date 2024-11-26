@@ -39,8 +39,10 @@ defmodule CurrencyFormatter do
     |> format(currency, opts)
   end
 
-  def format(number_string, currency, opts) when is_binary(number_string) and is_binary(currency) do
-    format = instructions(currency)
+  def format(number_string, currency, opts)
+      when is_binary(number_string) and is_binary(currency) do
+    currency_opts = Keyword.get(opts, :currency_opts, %{})
+    format = currency |> instructions() |> Map.merge(currency_opts)
 
     number_string
     |> remove_non_numbers
@@ -327,6 +329,7 @@ defmodule CurrencyFormatter do
   @spec set_symbol(String.t(), map, Keyword.t()) :: String.t()
   defp set_symbol(number_string, %{"symbol_first" => true} = config, opts) do
     symbol = get_symbol(config, opts)
+
     if Keyword.get(opts, :html) do
       wrap_in_spans(symbol: symbol, amount: number_string)
     else

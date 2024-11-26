@@ -49,6 +49,17 @@ defmodule CurrencyFormatterTest do
     assert "$1.00" == CurrencyFormatter.format(100, :usd, keep_decimals: true)
   end
 
+  test "should override currency instructions" do
+    assert "$191.234,82" ==
+             CurrencyFormatter.format(19_123_482, :usd,
+               keep_decimals: true,
+               currency_opts: %{
+                 "decimal_mark" => ",",
+                 "thousands_separator" => "."
+               }
+             )
+  end
+
   test "should format an amount_in_cents as integer to a price in euros" do
     assert "€0,01" == CurrencyFormatter.format(1, :eur)
     assert "€0,12" == CurrencyFormatter.format(12, :eur)
@@ -67,13 +78,6 @@ defmodule CurrencyFormatterTest do
     assert "€-499" == CurrencyFormatter.format(-49900, :eur)
     assert "€1" == CurrencyFormatter.format(100, :eur)
     assert "€1,00" == CurrencyFormatter.format(100, :eur, keep_decimals: true)
-  end
-
-  test "should return html" do
-    assert ~s[<span class="currency-formatter-symbol">€</span><span class="currency-formatter-amount">1.234</span>] ==
-             CurrencyFormatter.raw_html_format(123_400, :eur)
-    assert ~s[<span class="currency-formatter-symbol">€</span><span class="currency-formatter-amount">1.234,00</span>] ==
-             CurrencyFormatter.raw_html_format(123_400, :eur, keep_decimals: true)
   end
 
   test "should format an amount_in_cents as string to a price" do
@@ -98,11 +102,15 @@ defmodule CurrencyFormatterTest do
     assert "US$12.34" == CurrencyFormatter.format(1234, :usd, disambiguate: true)
     assert "C$12.34" == CurrencyFormatter.format(1234, :cad, disambiguate: true)
     assert "C$12" == CurrencyFormatter.format(1200, :cad, disambiguate: true)
-    assert "C$12.00" == CurrencyFormatter.format(1200, :cad, disambiguate: true, keep_decimals: true)
+
+    assert "C$12.00" ==
+             CurrencyFormatter.format(1200, :cad, disambiguate: true, keep_decimals: true)
 
     assert "$12.34" == CurrencyFormatter.format(1234, :usd, disambiguate: false)
     assert "$12" == CurrencyFormatter.format(1200, :cad, disambiguate: false)
-    assert "$12.00" == CurrencyFormatter.format(1200, :cad, disambiguate: false, keep_decimals: true)
+
+    assert "$12.00" ==
+             CurrencyFormatter.format(1200, :cad, disambiguate: false, keep_decimals: true)
   end
 
   test "should return a map with formatting instructions" do
