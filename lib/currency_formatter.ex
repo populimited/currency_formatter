@@ -6,7 +6,7 @@ defmodule CurrencyFormatter do
 
   @currencies "./lib/currency_iso.json"
               |> File.read!()
-              |> Poison.decode!()
+              |> Jason.decode!()
 
   @doc """
   Formats a number to currency

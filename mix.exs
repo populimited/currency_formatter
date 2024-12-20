@@ -44,7 +44,7 @@ defmodule CurrencyFormatter.Mixfile do
       {:earmark, ">= 0.0.0", only: :dev},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:excoveralls, ">= 0.0.0", only: :test},
-      {:poison, ">= 4.0.0"}
+      {:jason, ">= 0.0.0"}
     ]
   end
 
